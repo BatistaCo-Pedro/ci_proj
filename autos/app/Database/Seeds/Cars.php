@@ -14,7 +14,7 @@ class Cars extends Seeder
                 'car_name' => 'Corolla',
                 'color_hex' => 'FFA500',
                 'comments' => 'Great fuel economy!',
-                'car_type_id' => 1,
+                'car_type_id' => 10,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
@@ -23,7 +23,7 @@ class Cars extends Seeder
                 'car_name' => 'Civic',
                 'color_hex' => '0000FF',
                 'comments' => 'Sporty and fun to drive',
-                'car_type_id' => 1,
+                'car_type_id' => 15,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
@@ -31,12 +31,24 @@ class Cars extends Seeder
                 'car_brand' => 'Mercedes',
                 'car_name' => 'Viano',
                 'color_hex' => 'FFFFFF',
-                'comments' => 'Sporty and fun to drive',
-                'car_type_id' => 2,
+                'comments' => '',
+                'car_type_id' => 20,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
+            [
+                'car_brand' => 'Ford',
+                'car_name' => 'Ranger',
+                'color_hex' => '000000',
+                'comments' => '',
+                'car_type_id' => 30,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]
         ];
+
+        // Variant 1: Insert via model
+
 
         // Init car model
         $CarModel = new \App\Models\Cars();
@@ -49,5 +61,12 @@ class Cars extends Seeder
                 print_r($CarModel->errors());
             }
         }
+
+
+        // Variant 2: Insert via DB Object
+
+        // foreach($example_data as $entry_id => $data) {
+        //     $this->db->table('cars') ->insert($data);
+        // }
     }
 }

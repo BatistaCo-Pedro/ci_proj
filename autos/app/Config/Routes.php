@@ -31,6 +31,19 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+$routes->resource('cars');
+
+// Equivalent to the following:
+
+// $routes->get('cars/new', 'Cars::new');
+// $routes->post('cars', 'Cars::create');
+// $routes->get('cars', 'Cars::index');
+// $routes->get('cars/(:segment)', 'Cars::show/$1');
+// $routes->get('cars/(:segment)/edit', 'Cars::edit/$1');
+// $routes->put('cars/(:segment)', 'Cars::update/$1');
+// $routes->patch('cars/(:segment)', 'Cars::update/$1');
+// $routes->delete('cars/(:segment)', 'Cars::delete/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
