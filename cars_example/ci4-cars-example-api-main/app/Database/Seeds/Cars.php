@@ -40,7 +40,7 @@ class Cars extends Seeder
             [
                 'car_brand'     => 'VW',
                 'car_name'      => 'Bus',
-                'color_hex'     => 'afi33kasdfasdfs',
+                'color_hex'     => 'ff0509',
                 'comments'      => '',
                 'car_type_id'   => 30,
                 'created_at'    => date('Y-m-d H:i:s'),
