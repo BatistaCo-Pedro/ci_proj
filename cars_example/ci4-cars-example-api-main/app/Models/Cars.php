@@ -24,12 +24,14 @@ class Cars extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [
+    protected $validationRules = [
         'car_brand'     => 'required|alpha_numeric_space|min_length[2]',
         'car_name'      => 'required|alpha_numeric_space',
-        'color_hex'     => 'exact_length[6]|hex',
+        'color_hex'     => 'permit_empty|exact_length[6]|hex',
+        'comments'      => 'permit_empty|alpha_numeric_punct',
         'car_type_id'   => 'required|is_natural_no_zero'
     ];
+    
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
