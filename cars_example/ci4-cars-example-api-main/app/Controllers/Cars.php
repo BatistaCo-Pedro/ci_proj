@@ -7,25 +7,19 @@ use CodeIgniter\RESTful\ResourceController;
 
 class Cars extends ResourceController
 {
-
     protected $modelName = 'App\Models\Cars';
     protected $format = 'json';
 
     protected $config = null;
 
-
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-
-        // Load custom config: Cars
+    function __construct() {
+        header('Content-type: application/json');
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET");
+        header("Access-Control-Allow-Methods: GET, OPTIONS");
+        header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
         $this->config = config('Cars');
-
     }
-
-
 
     /**
      * Get all cars
@@ -41,7 +35,6 @@ class Cars extends ResourceController
                 $all_data[$id] = $prepared_data;
             }
         }
-
         return $this->respond($all_data);
     }
 
@@ -60,6 +53,7 @@ class Cars extends ResourceController
 
             if (!empty($data)) {
                 $prepared_data = $this->_prepare_data($data);
+                
                 return $this->respond($prepared_data);
             }
         }
@@ -88,7 +82,11 @@ class Cars extends ResourceController
             }
             
         }
-
+        header('Content-type: application/json');
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET");
+        header("Access-Control-Allow-Methods: GET, OPTIONS");
+        header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
         return $data;
     }
 
