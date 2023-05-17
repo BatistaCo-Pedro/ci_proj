@@ -7,19 +7,25 @@ use CodeIgniter\RESTful\ResourceController;
 
 class Cars extends ResourceController
 {
+
     protected $modelName = 'App\Models\Cars';
     protected $format = 'json';
 
     protected $config = null;
 
-    function __construct() {
-        header('Content-type: application/json');
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Methods: GET");
-        header("Access-Control-Allow-Methods: GET, OPTIONS");
-        header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
+
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+
+        // Load custom config: Cars
         $this->config = config('Cars');
+
     }
+
+
 
     /**
      * Get all cars
@@ -28,14 +34,37 @@ class Cars extends ResourceController
      */
     public function index() {
 
-        $all_data = $this->model->findAll();
-        if (!empty($all_data) && is_array($all_data)) {
-            foreach($all_data as $id => $data) {
-                $prepared_data = $this->_prepare_data($data);
-                $all_data[$id] = $prepared_data;
+
+        // Get filter (from helper)
+        $filter = prepare_filter();
+
+        
+        // Set custom filter
+        // Maybe custom filter for this Controller like category_id, etc.
+
+
+        // Get filtered data
+        $all_data = $this->model->getFiltered($filter);
+        
+
+        // Check filtered data
+        if ($filter !== FALSE && !empty($all_data)) {
+
+            // Prepare data
+            if (!empty($all_data['data']) && is_array($all_data['data'])) {
+                foreach($all_data['data'] as $id => $data) {
+                    $prepared_data = $this->_prepare_data($data);
+                    $all_data['data'][$id] = $prepared_data;
+                }
             }
+            
+            // Respond data
+            return $this->respond($all_data);
         }
-        return $this->respond($all_data);
+
+        // Show error
+        return $this->failNotFound();
+
     }
 
 
@@ -53,7 +82,6 @@ class Cars extends ResourceController
 
             if (!empty($data)) {
                 $prepared_data = $this->_prepare_data($data);
-                
                 return $this->respond($prepared_data);
             }
         }
@@ -82,11 +110,7 @@ class Cars extends ResourceController
             }
             
         }
-        header('Content-type: application/json');
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Methods: GET");
-        header("Access-Control-Allow-Methods: GET, OPTIONS");
-        header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
+
         return $data;
     }
 

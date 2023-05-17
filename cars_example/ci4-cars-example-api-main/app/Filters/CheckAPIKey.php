@@ -2,6 +2,8 @@
 
 namespace App\Filters;
 
+use Config\Services;
+
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -28,47 +30,109 @@ class CheckAPIKey implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
 
-        // Get API Keys
+        // Load API config
         $api_config = config('API');
 
+        // First, set access to false, then check all rules
+        $has_valid_api_key = FALSE;
+        $has_valid_ip = FALSE;
 
-        $key = null;
 
-        // Check get parameter first ($_GET)
-        $key_by_parameter = $request->getGet('key');
-        if (!empty($key_by_parameter)) {
-            $key = $key_by_parameter;
+        if ($api_config->check_api_key === TRUE) {
+
+            // Get API Key
+            $key = get_api_key_from_request($request);
+
+            // Is API Key set?
+            if (!empty($key)) {
+
+                /**
+                 * Variante 1
+                 * Check API Key by Config
+                 */
+
+                // Check API Key
+                if (array_key_exists($key, $api_config->allowed_api_keys)) {
+
+                    $has_valid_api_key = TRUE;
+
+                }
+
+
+
+                /**
+                 * Variante 2
+                 * Check API Key by Model
+                 */
+
+                // Get API Keys (from Model)
+                $api_model = model('APIKeys');
+
+                // Check API Key
+                if ($api_model->check($key) !== FALSE) {
+                    $has_valid_api_key = TRUE;
+                }
+
+
+            }
         }
         else {
+            $has_valid_api_key = TRUE;
+        }
 
-            // Then, check header if nothing is set
-            $key_by_header = $request->header('key');
-            if (!empty($key_by_header)) {
-                $key_by_header = explode(':', $key_by_header);
-                $key = $key_by_header[1] ?? null;
+
+
+        // Check IP retriction
+        if ($api_config->check_ip_address === TRUE) {
+
+            if (is_array($api_config->allowed_ip_addresses)) {
+                
+                if (array_key_exists($request->getIPAddress(), $api_config->allowed_ip_addresses)) {
+                    $has_valid_ip = TRUE;
+                }
             }
 
         }
+        else {
+            $has_valid_ip = TRUE;
+        }
 
-        if (array_key_exists($key, $api_config->keys)) {
 
-            // Simple log for request
-            $name = $api_config->keys[$key];
-            $method = strtoupper($request->getMethod());
-            $url = $request->getUri();
-            log_message('info', 'API Request from '.$name.' to '.$url.' ('.$method.')');
+        if ($has_valid_api_key && $has_valid_ip) {
+            
+            /**
+             * Simple log request into log file
+             */
+            log_api_request($request, $key);
 
+
+            /**
+             * Übung 2: Log file into db?
+             * 
+             * TODO
+             * 
+             */
+
+
+            
         }
         else {
 
             // Send forbidden header
-            header('HTTP/1.1 401 Unauthorized', true, 401);
-            echo json_encode(['error' => 'Unauthorized']);
-            exit();
+            return Services::response()
+                ->setJSON(
+                    [
+                        'error' => 'Unauthorized'
+                    ]
+                )
+                ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
 
         }
+
     }
 
+
+    
     /**
      * Allows After filters to inspect and modify the response
      * object as needed. This method does not allow any way

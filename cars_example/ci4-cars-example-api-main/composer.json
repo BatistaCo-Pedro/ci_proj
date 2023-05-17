@@ -7,6 +7,9 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "codeigniter4/framework": "^4.0",
+        "codeigniter4/settings": "^2.1",
+        "codeigniter4/shield": "^1.0@beta",
+        "firebase/php-jwt": "^6.4",
         "zircote/swagger-php": "^4.7"
     },
     "require-dev": {
@@ -36,5 +39,7 @@
         "forum": "https://forum.codeigniter.com/",
         "source": "https://github.com/codeigniter4/CodeIgniter4",
         "slack": "https://codeigniterchat.slack.com"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

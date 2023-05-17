@@ -29,16 +29,17 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::index', []);
 
 
 // Example without filter
-$routes->resource('cars', ["filter" => "check_api_key"]);
-
+$routes->resource('cars');
 
 // Example with filter
-// $routes->resource('cars', ['filter' => 'check_api_key']);
+//$routes->resource('cars', ['filter' => 'jwt', 'check_api_key']);
 
+// JWT login
+$routes->post('auth/jwt', '\App\Controllers\Auth\LoginController::jwtLogin');
 
 // Equivalent to the following:
 /*
@@ -50,6 +51,8 @@ $routes->get('cars/(:segment)/edit', 'Cars::edit/$1');
 $routes->put('cars/(:segment)', 'Cars::update/$1');
 $routes->patch('cars/(:segment)', 'Cars::update/$1');
 $routes->delete('cars/(:segment)', 'Cars::delete/$1');
+
+service('auth')->routes($routes);
 See https://codeigniter.com/user_guide/incoming/restful.html
 */
 
