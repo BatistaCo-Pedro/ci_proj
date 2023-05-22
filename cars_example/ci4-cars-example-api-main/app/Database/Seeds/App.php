@@ -9,7 +9,8 @@ class App extends Seeder
     public function run()
     {
 
-        $this->call('Cars');
+        $this->call('Categories');
+        $this->call('Todos');
         $this->call('APIKeys');
         
     }
