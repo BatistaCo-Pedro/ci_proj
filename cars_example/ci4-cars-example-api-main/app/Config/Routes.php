@@ -33,7 +33,7 @@ $routes->get('/', 'Home::index', []);
 
 
 // Example without filter
-$routes->resource('cars', );
+$routes->resource('todos', );
 
 // Example with filter
 //$routes->resource('cars', ['filter' => 'jwt', 'check_api_key']);

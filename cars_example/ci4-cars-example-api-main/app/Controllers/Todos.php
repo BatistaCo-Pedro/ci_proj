@@ -5,10 +5,10 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 
 
-class Cars extends ResourceController
+class Todos extends ResourceController
 {
 
-    protected $modelName = 'App\Models\Cars';
+    protected $modelName = 'App\Models\Todo';
     protected $format = 'json';
 
     protected $config = null;
@@ -20,15 +20,11 @@ class Cars extends ResourceController
      */
     public function __construct() {
 
-        // Load custom config: Cars
-        $this->config = config('Cars');
-
     }
 
 
-
     /**
-     * Get all cars
+     * Get all Todos
      *
      * @return \CodeIgniter\HTTP\ResponseInterface
      */
@@ -103,11 +99,6 @@ class Cars extends ResourceController
 
             // Remove internal field: deleted_at
             unset($data['deleted_at']);
-
-            // Add car type as text
-            if (!empty($data['car_type_id']) && !empty($this->config->car_types[$data['car_type_id']])) {
-                $data['car_type'] = $this->config->car_types[$data['car_type_id']];
-            }
             
         }
 
