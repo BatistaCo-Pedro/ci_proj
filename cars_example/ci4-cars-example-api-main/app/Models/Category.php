@@ -38,4 +38,55 @@ class Category extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getFiltered($filter) {
+
+        // Prepare return
+        $return = array();
+
+        // Set query with builder
+        $builder = $this->db->table($this->table);
+
+        // Set limit & offset
+        if (!empty($filter['limit'])) {
+
+            if (!empty($filter['offset'])) {
+                $builder->limit($filter['limit'], $filter['offset']);
+            }
+            else {
+                $builder->limit($filter['limit']);
+            }
+
+        }
+
+        
+        // Set order by
+        if (!empty($filter['order'])) {
+            $builder->orderBy($filter['order']);
+        }
+
+
+        // Check specific: car_type_id
+        if (!empty($filter['car_type_id'])) {
+            $builder->where('car_type_id', $filter['car_type_id']);
+        }
+
+
+        // Get data
+        $query = $builder->get();
+
+        // Get count all
+       
+        // Prepare data
+        $return['total'] = $builder->countAll();
+        $return['data'] = array();
+        foreach ($query->getResultArray() as $row) {
+            $return['data'][$row[$this->primaryKey]] = $row;
+        }
+        
+        // Return data
+        return $return;
+
+    }
+
 }

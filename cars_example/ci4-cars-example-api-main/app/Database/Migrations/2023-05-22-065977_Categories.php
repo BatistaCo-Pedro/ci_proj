@@ -11,8 +11,7 @@ class Categories extends Migration
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',
-                'constraint' => 10,
-                'unsigned' => true,
+                'constraint' => 11,
                 'auto_increment' => true,
             ],
             'cat_name' => [
@@ -32,7 +31,7 @@ class Categories extends Migration
         $this->forge->addKey('id', true);
         $this->forge->createTable('categories');
 
-        $this->db->query('ALTER TABLE `todos` ADD CONSTRAINT todos.categoryId FOREIGN KEY(`id`) REFERENCES categories(`id`) ON DELETE CASCADE ON UPDATE CASCADE;');
+        $this->db->query('ALTER TABLE `todos` ADD CONSTRAINT todos.categoryId FOREIGN KEY(`categoryId`) REFERENCES categories(`id`) ON DELETE CASCADE ON UPDATE CASCADE;');
 
     }
 

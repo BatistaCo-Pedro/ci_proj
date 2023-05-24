@@ -8,15 +8,14 @@ class API extends BaseConfig
 {
 
     public $defaults = [
-        'default_limit' => 100,
-        'max_limit' => 100
+        'default_limit' => 5,
+        'max_limit' => 10
     ];
 
-    public $check_api_key = TRUE;
+    public $check_api_key = true;
 
     public $allowed_api_keys = [
-        'km9uyxeq8pEGPcixfa3teyDHcPoabM' => 'Emanuel',
-        'P7Cy7yGwLo8RPFDzce4wuYqCGwWYmE' => 'Sarah'
+        'fegy7yGwLogfhPFDzce4wuY5gbawEf' => 'Pedro'
     ];
 
 
@@ -25,6 +24,5 @@ class API extends BaseConfig
     public $allowed_ip_addresses = [
         '::1' => 'localhost (ipv6)',
         '127.0.0.1' => 'localhost (ipv4)',
-        '212.34.144.22' => 'Spezifische IP Adresse'
     ];
 }

@@ -34,7 +34,9 @@ $routes->get('/', 'Home::index', []);
 
 // Example without filter
 $routes->resource('todos', );
+$routes->resource('categories', );
 
+$routes->cli("email/send", "Email::send");
 // Example with filter
 //$routes->resource('cars', ['filter' => 'jwt', 'check_api_key']);
 

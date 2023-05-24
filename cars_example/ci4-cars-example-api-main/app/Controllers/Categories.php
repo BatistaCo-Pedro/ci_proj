@@ -5,10 +5,10 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 
 
-class Todos extends ResourceController
+class Categories extends ResourceController
 {
 
-    protected $modelName = 'App\Models\Todo';
+    protected $modelName = 'App\Models\Category';
     protected $format = 'json';
 
     protected $config = null;
@@ -22,7 +22,6 @@ class Todos extends ResourceController
 
     }
 
-
     /**
      * Get all Todos
      *
@@ -33,7 +32,6 @@ class Todos extends ResourceController
 
         // Get filter (from helper)
         $filter = prepare_filter();
-
         
         // Set custom filter
         // Maybe custom filter for this Controller like category_id, etc.
@@ -41,7 +39,11 @@ class Todos extends ResourceController
 
         // Get filtered data
         $all_data = $this->model->getFiltered($filter);
+
+        $request = request();
         
+        log_api_request($request, get_api_key_from_request($request));
+
 
         // Check filtered data
         if ($filter !== FALSE && !empty($all_data)) {
@@ -142,6 +144,8 @@ class Todos extends ResourceController
         return $this->failServerError();
 
     }
+
+
 
     /**
      * PUT & PATCH / Update an entry
