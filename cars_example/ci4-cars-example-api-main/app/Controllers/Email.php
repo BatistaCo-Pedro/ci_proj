@@ -18,7 +18,7 @@ class Email extends BaseController
     $email->send();
 
     if (! $email->send()) {
-        log_message("debug", "merde");
+        log_message("debug", "Something went wrong");
     }
    }
 }

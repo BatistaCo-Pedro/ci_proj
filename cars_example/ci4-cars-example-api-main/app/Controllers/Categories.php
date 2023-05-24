@@ -32,10 +32,6 @@ class Categories extends ResourceController
 
         // Get filter (from helper)
         $filter = prepare_filter();
-        
-        // Set custom filter
-        // Maybe custom filter for this Controller like category_id, etc.
-
 
         // Get filtered data
         $all_data = $this->model->getFiltered($filter);
@@ -43,7 +39,6 @@ class Categories extends ResourceController
         $request = request();
         
         log_api_request($request, get_api_key_from_request($request));
-
 
         // Check filtered data
         if ($filter !== FALSE && !empty($all_data)) {
