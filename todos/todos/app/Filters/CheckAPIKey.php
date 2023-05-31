@@ -41,7 +41,7 @@ class CheckAPIKey implements FilterInterface
         if ($api_config->check_api_key === TRUE) {
 
             // Get API Key
-            $key = get_api_key_from_request($request);
+            $key = get_api_auth_from_request($request);
 
             // Is API Key set?
             if (!empty($key)) {

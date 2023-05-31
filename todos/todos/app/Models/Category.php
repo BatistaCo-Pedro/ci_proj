@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\BaseResult;
 
 class Category extends Model
 {
@@ -66,12 +67,6 @@ class Category extends Model
         }
 
 
-        // Check specific: car_type_id
-        if (!empty($filter['car_type_id'])) {
-            $builder->where('car_type_id', $filter['car_type_id']);
-        }
-
-
         // Get data
         $query = $builder->get();
 
@@ -87,6 +82,14 @@ class Category extends Model
         // Return data
         return $return;
 
+    }
+
+    public function hasTodosAssociated($id) {
+        $builder = $this->db->table("todos");
+        $query = $builder->getWhere(["categoryId" => $id]);
+        if(empty($query->getRow())) return false;
+        log_message("debug", strval($query->getRow()->todo_name));
+        return true;
     }
 
 }

@@ -12,34 +12,22 @@ use CodeIgniter\HTTP\RequestInterface;
  * @param RequestInterface $request
  * @return mixed
  */
-function get_api_key_from_request(RequestInterface $request) {
+function get_api_auth_from_request(RequestInterface $request) {
 
 	// Get API Key in request (either as $_GET parameter or as HTTP Header)
 	$key = null;
 
-	// Check get parameter first ($_GET)
-	$key_by_parameter = $request->getGet('key');
-	if (!empty($key_by_parameter)) {
-		$key = $key_by_parameter;
-	}
-	else {
+	$auth_by_header = $request->header('Authorization');
+
+	if (!empty($auth_by_header)) {
+		$auth_by_header = explode(':', $auth_by_header);
+		$key = $auth_by_header[1] ?? null;
 		
-		// Then, check header if nothing is set
-		$key_by_header = $request->header('key');
-
-		if (!empty($key_by_header)) {
-			$key_by_header = explode(':', $key_by_header);
-			$key = $key_by_header[1] ?? null;
-			
-			if (!empty($key)) {
-				$key = trim($key);
-			}
+		if (!empty($key)) {
+			$key = trim($key);
 		}
-
 	}
-
 	return $key;
-
 }
 
 
@@ -60,6 +48,6 @@ function log_api_request(RequestInterface $request, $api_key = '') {
 	$url = $request->getUri();
 
 	// Log
-	return log_message('info', 'API Request from '.$api_key.' to '.$url.' ('.$method.')');
+	return log_message('info', 'API Request from '. $api_key.' to '. $url.' ('. $method .')');
 	
 }

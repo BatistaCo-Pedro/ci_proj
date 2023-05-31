@@ -18,8 +18,8 @@ class AddUser extends Migration
         
         // Add user
         $user = new User([
-            'username' => 'pedro',
-            'email'    => 'pedrocorreiabatista@gmail.com',
+            'username' => 'pedrocas',
+            'email'    => 'pedrocas@gmail.com',
             'password' => 'secret',
         ]);
         $users->save($user);

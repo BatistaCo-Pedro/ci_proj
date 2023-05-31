@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Shield\Config\Services;
 use CodeIgniter\RESTful\ResourceController;
 
 
@@ -18,9 +20,7 @@ class Categories extends ResourceController
     /**
      * Constructor
      */
-    public function __construct() {
-
-    }
+    public function __construct() {}
 
     /**
      * Get all Todos
@@ -38,7 +38,7 @@ class Categories extends ResourceController
 
         $request = request();
         
-        log_api_request($request, get_api_key_from_request($request));
+        log_api_request($request, get_api_auth_from_request($request));
 
         // Check filtered data
         if ($filter !== FALSE && !empty($all_data)) {
@@ -60,8 +60,6 @@ class Categories extends ResourceController
 
     }
 
-
-
     /**
      * Get single car with specific ID
      *
@@ -71,7 +69,7 @@ class Categories extends ResourceController
 
         $request = request();
         
-        log_api_request($request, get_api_key_from_request($request));
+        log_api_request($request, get_api_auth_from_request($request));
 
         if (!empty($id)) {
 
@@ -85,8 +83,6 @@ class Categories extends ResourceController
 
         return $this->failNotFound();
     }
-
-
 
     /**
      * Prepare data to view
@@ -106,8 +102,6 @@ class Categories extends ResourceController
         return $data;
     }
 
-
-
     /**
      * POST / Create new entry
      *
@@ -117,7 +111,7 @@ class Categories extends ResourceController
         
         $request = request();
         
-        log_api_request($request, get_api_key_from_request($request));
+        log_api_request($request, get_api_auth_from_request($request));
 
         // Get & prepare data
         $data = $this->request->getJSON(true);
@@ -148,8 +142,6 @@ class Categories extends ResourceController
 
     }
 
-
-
     /**
      * PUT & PATCH / Update an entry
      *
@@ -159,7 +151,7 @@ class Categories extends ResourceController
 
         $request = request();
         
-        log_api_request($request, get_api_key_from_request($request));
+        log_api_request($request, get_api_auth_from_request($request));
 
         if (!empty($id)) {
 
@@ -203,7 +195,16 @@ class Categories extends ResourceController
 
         $request = request();
         
-        log_api_request($request, get_api_key_from_request($request));
+        log_api_request($request, get_api_auth_from_request($request));
+
+        if($this->model->hasTodosAssociated($id)) {
+            log_message("info", "There are todos associated with this category, cannot delete");
+            return Services::response()->setJSON(
+                [
+                    "Cannot Delete" => "There are todos associated with this category!"
+                ]
+            )->setStatusCode(ResponseInterface::HTTP_IM_USED);
+        }
 
         if (!empty($id)) {
 
