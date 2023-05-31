@@ -31,14 +31,10 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index', []);
 
-
-// Example without filter
-$routes->resource('todos', );
-$routes->resource('categories', );
+$routes->resource('todos', ['filter' => 'jwt']);
+$routes->resource('categories', ['filter' => 'jwt']);
 
 $routes->cli("email/send", "Email::send");
-// Example with filter
-//$routes->resource('cars', ['filter' => 'jwt', 'check_api_key']);
 
 // JWT login
 $routes->post('auth/jwt', '\App\Controllers\Auth\LoginController::jwtLogin');

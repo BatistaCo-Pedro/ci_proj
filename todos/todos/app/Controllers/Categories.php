@@ -69,6 +69,10 @@ class Categories extends ResourceController
      */
     public function show($id = null) {
 
+        $request = request();
+        
+        log_api_request($request, get_api_key_from_request($request));
+
         if (!empty($id)) {
 
             $data = $this->model->find($id);
@@ -111,6 +115,10 @@ class Categories extends ResourceController
      */
     public function create() {
         
+        $request = request();
+        
+        log_api_request($request, get_api_key_from_request($request));
+
         // Get & prepare data
         $data = $this->request->getJSON(true);
 
@@ -148,6 +156,10 @@ class Categories extends ResourceController
      * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function update($id = null) {
+
+        $request = request();
+        
+        log_api_request($request, get_api_key_from_request($request));
 
         if (!empty($id)) {
 
@@ -188,6 +200,10 @@ class Categories extends ResourceController
      * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function delete($id = null) {
+
+        $request = request();
+        
+        log_api_request($request, get_api_key_from_request($request));
 
         if (!empty($id)) {
 

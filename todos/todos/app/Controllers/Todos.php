@@ -29,15 +29,12 @@ class Todos extends ResourceController
      * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function index() {
-
-
         // Get filter (from helper)
         $filter = prepare_filter();
 
+        $request = request();
         
-        // Set custom filter
-        // Maybe custom filter for this Controller like category_id, etc.
-
+        log_api_request($request, get_api_key_from_request($request));
 
         // Get filtered data
         $all_data = $this->model->getFiltered($filter);
@@ -71,6 +68,9 @@ class Todos extends ResourceController
      * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function show($id = null) {
+        $request = request();
+        
+        log_api_request($request, get_api_key_from_request($request));
 
         if (!empty($id)) {
 
@@ -95,6 +95,10 @@ class Todos extends ResourceController
      */
     private function _prepare_data($data = array()) {
 
+        $request = request();
+        
+        log_api_request($request, get_api_key_from_request($request));
+
         if (!empty($data) && is_array($data)) {
 
             // Remove internal field: deleted_at
@@ -114,6 +118,10 @@ class Todos extends ResourceController
      */
     public function create() {
         
+        $request = request();
+        
+        log_api_request($request, get_api_key_from_request($request));
+
         // Get & prepare data
         $data = $this->request->getJSON(true);
 
@@ -149,6 +157,9 @@ class Todos extends ResourceController
      * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function update($id = null) {
+        $request = request();
+        
+        log_api_request($request, get_api_key_from_request($request));
 
         if (!empty($id)) {
 
@@ -158,6 +169,8 @@ class Todos extends ResourceController
 
                 // Get & prepare data
                 $data = $this->request->getJSON(true);
+
+                log_message("debug", "Create Todo JSON data: " + json_encode($data));
 
                 if (!empty($data)) {
 

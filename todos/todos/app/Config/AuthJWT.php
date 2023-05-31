@@ -30,7 +30,7 @@ class AuthJWT extends BaseConfig
      * @var array<string, string>
      */
     public array $defaultClaims = [
-        'iss' => 'cars-demo-application',
+        'iss' => 'todos-app.com',
     ];
 
     /**
@@ -51,7 +51,7 @@ class AuthJWT extends BaseConfig
                 'alg' => 'HS256', // algorithm.
                 // Set secret random string. Needs at least 256 bits for HS256 algorithm.
                 // E.g., $ php -r 'echo base64_encode(random_bytes(32));'
-                'secret' => 'sdf98ewo4573ingewp9u2hfdw',
+                'secret' => 'uGoPBqThahdWrJpif+1fVwxVQHXIe82vGKdp7t1IRpc=',
             ],
             // Asymmetric Key
             // [
