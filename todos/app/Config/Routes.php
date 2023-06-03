@@ -31,8 +31,14 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index', []);
 
-$routes->resource('todos', ['filter' => 'jwt']);
-$routes->resource('categories', ['filter' => 'jwt']);
+$routes->group("api", ["filter" => "check_api_key"], static function ($routes) {
+    $routes->resource('todos');
+    $routes->resource('categories');
+});
+
+$routes->group("api", ["filter" => "check_api_key"], static function ($routes) {
+    $routes->resource("privatetodos", ["filter" => "jwt"]);
+});
 
 $routes->cli("email/send", "Email::send");
 

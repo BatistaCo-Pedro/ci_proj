@@ -34,7 +34,7 @@ class Todos extends ResourceController
 
         $request = request();
         
-        log_api_request($request, get_api_auth_from_request($request));
+        log_api_request($request, get_api_key_from_request($request));
 
         // Get filtered data
         $all_data = $this->model->getFiltered($filter);
@@ -70,7 +70,7 @@ class Todos extends ResourceController
     public function show($id = null) {
         $request = request();
         
-        log_api_request($request, get_api_auth_from_request($request));
+        log_api_request($request, get_api_key_from_request($request));
 
         if (!empty($id)) {
 
@@ -115,7 +115,7 @@ class Todos extends ResourceController
         
         $request = request();
         
-        log_api_request($request, get_api_auth_from_request($request));
+        log_api_request($request, get_api_key_from_request($request));
 
         // Get & prepare data
         $data = $this->request->getJSON(true);
@@ -154,7 +154,7 @@ class Todos extends ResourceController
     public function update($id = null) {
         $request = request();
         
-        log_api_request($request, get_api_auth_from_request($request));
+        log_api_request($request, get_api_key_from_request($request));
 
         if (!empty($id)) {
 
@@ -200,7 +200,7 @@ class Todos extends ResourceController
 
         $request = request();
         
-        log_api_request($request, get_api_auth_from_request($request));
+        log_api_request($request, get_api_key_from_request($request));
 
         if (!empty($id)) {
 

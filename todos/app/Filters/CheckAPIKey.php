@@ -41,13 +41,13 @@ class CheckAPIKey implements FilterInterface
         if ($api_config->check_api_key === TRUE) {
 
             // Get API Key
-            $key = get_api_auth_from_request($request);
+            $key = get_api_key_from_request($request);
 
             // Is API Key set?
             if (!empty($key)) {
 
                 /**
-                 * Variante 1
+                 * Variant 1
                  * Check API Key by Config
                  */
 
@@ -58,13 +58,10 @@ class CheckAPIKey implements FilterInterface
 
                 }
 
-
-
                 /**
-                 * Variante 2
+                 * Variant 2
                  * Check API Key by Model
                  */
-
                 // Get API Keys (from Model)
                 $api_model = model('APIKeys');
 
@@ -103,18 +100,7 @@ class CheckAPIKey implements FilterInterface
             /**
              * Simple log request into log file
              */
-            log_api_request($request, $key);
-
-
-            /**
-             * Übung 2: Log file into db?
-             * 
-             * TODO
-             * 
-             */
-
-
-            
+            log_api_request($request, $key);            
         }
         else {
 
@@ -126,7 +112,6 @@ class CheckAPIKey implements FilterInterface
                     ]
                 )
                 ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
-
         }
 
     }

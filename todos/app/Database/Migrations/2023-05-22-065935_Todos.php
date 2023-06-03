@@ -14,6 +14,7 @@ class Todos extends Migration
             todo_name VARCHAR(255),
             todo_description VARCHAR(255),
             todo_priorityNr INT,
+            private_todo BOOLEAN,
             categoryId INT(11),
             created_at DATETIME,
             updated_at DATETIME,

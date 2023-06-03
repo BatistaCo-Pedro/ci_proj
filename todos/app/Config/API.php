@@ -15,7 +15,7 @@ class API extends BaseConfig
     public $check_api_key = true;
 
     public $allowed_api_keys = [
-        'fegy7yGwLogfhPFDzce4wuY5gbawEf' => 'Pedro'
+        'uGoPBqThahdWrJpif+1fVwxVQHXIe82vGKdp7t1IRpc=' => 'Pedro'
     ];
 
 

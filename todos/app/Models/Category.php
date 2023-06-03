@@ -3,17 +3,18 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\BaseResult;
 
-class Todo extends Model
+class Category extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'todos';
+    protected $table            = 'categories';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["todo_name", "todo_description", "categoryId", "todo_priorityNr"];
+    protected $allowedFields    = ["cat_name"];
 
     // Dates
     protected $useTimestamps = false;
@@ -23,13 +24,7 @@ class Todo extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [
-        "todo_name" => "required|alpha_numeric_space|min_length[3]",
-        "todo_description" => "required|alpha_numeric_space|min_length[15]",
-        "categoryId" => "required|numeric",
-        "todo_priorityNr" => "required|numeric",
-
-    ];
+    protected $validationRules      = ["cat_name" => "required|alpha_numeric_space|min_length[3]"];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
@@ -72,12 +67,6 @@ class Todo extends Model
         }
 
 
-        // Check specific: car_type_id
-        if (!empty($filter['car_type_id'])) {
-            $builder->where('car_type_id', $filter['car_type_id']);
-        }
-
-
         // Get data
         $query = $builder->get();
 
@@ -95,6 +84,15 @@ class Todo extends Model
 
     }
 
+    public function hasTodosAssociated($id) {
+        $builder = $this->db->table("todos");
+
+        $query = $builder->getWhere(["categoryId" => $id]);
+
+        if(empty($query->getRow())) return false;
+        log_message("debug", strval($query->getRow()->todo_name));
+        
+        return true;
+    }
+
 }
-
-
