@@ -34,16 +34,17 @@ $routes->get('/', 'Home::index', []);
 $routes->group("api", ["filter" => "check_api_key"], static function ($routes) {
     $routes->resource('todos');
     $routes->resource('categories');
+    $routes->resource("privatetodos", ["filter" => "jwt"]);
 });
 
-$routes->group("api", ["filter" => "check_api_key"], static function ($routes) {
-    $routes->resource("privatetodos", ["filter" => "jwt"]);
+$routes->group("api", static function ($routes) {
+    $routes->post('auth/jwt', '\App\Controllers\Auth\LoginController::jwtLogin');
 });
 
 $routes->cli("email/send", "Email::send");
 
 // JWT login
-$routes->post('auth/jwt', '\App\Controllers\Auth\LoginController::jwtLogin');
+
 
 // Equivalent to the following:
 /*
