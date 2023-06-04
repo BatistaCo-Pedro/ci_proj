@@ -38,7 +38,7 @@ class Categories extends ResourceController
 
         $request = request();
         
-        log_api_request($request, get_api_auth_from_request($request));
+        log_api_request($request, get_api_key_from_request($request));
 
         // Check filtered data
         if ($filter !== FALSE && !empty($all_data)) {
@@ -69,7 +69,7 @@ class Categories extends ResourceController
 
         $request = request();
         
-        log_api_request($request, get_api_auth_from_request($request));
+        log_api_request($request, get_api_key_from_request($request));
 
         if (!empty($id)) {
 
@@ -111,7 +111,7 @@ class Categories extends ResourceController
         
         $request = request();
         
-        log_api_request($request, get_api_auth_from_request($request));
+        log_api_request($request, get_api_key_from_request($request));
 
         // Get & prepare data
         $data = $this->request->getJSON(true);
@@ -151,7 +151,7 @@ class Categories extends ResourceController
 
         $request = request();
         
-        log_api_request($request, get_api_auth_from_request($request));
+        log_api_request($request, get_api_key_from_request($request));
 
         if (!empty($id)) {
 
@@ -195,7 +195,7 @@ class Categories extends ResourceController
 
         $request = request();
         
-        log_api_request($request, get_api_auth_from_request($request));
+        log_api_request($request, get_api_key_from_request($request));
 
         if($this->model->hasTodosAssociated($id)) {
             log_message("info", "There are todos associated with this category, cannot delete");

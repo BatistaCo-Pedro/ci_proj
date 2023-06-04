@@ -11,17 +11,11 @@ class APIKeys extends Seeder
 
         $api_keys_data = [
             [
-                'api_key'       => 'iGadgwrYbDPULtDq2dNrCucRQpJjY2',
-                'comments'      => 'Beispiel API Key 1',
+                'api_key'       => 'uGoPBqThahdWrJpif+1fVwxVQHXIe82vGKdp7t1IRpc=',
+                'comments'      => 'Pedrocas',
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
-            [
-                'api_key'       => 'QMeLxziZmYFbALKLrVnQf6KCFFXPHX',
-                'comments'      => 'Beispiel API Key 2',
-                'created_at'    => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s'),
-            ]
         ];
         
         // Init car model
