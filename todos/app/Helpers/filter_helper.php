@@ -55,6 +55,12 @@ function prepare_filter() {
 	}
 	
 
+	$categoryId = $request->getGet("categoryId");
+	log_message("debug", "filter_helper - category id:" . $categoryId);
+	if(!empty($categoryId)) {
+		$filter["categoryId"] = $categoryId;
+	}
+
 	if ($has_errors) {
 		return FALSE;
 	}

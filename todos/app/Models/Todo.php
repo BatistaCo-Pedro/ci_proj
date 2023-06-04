@@ -44,7 +44,9 @@ class Todo extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    protected function setFilters($filter) {
+    protected $filteringCategoryId = false;
+    
+    private function setFilters($filter) {
         // Set query with builder
         $builder = $this->db->table($this->table);
 
@@ -65,6 +67,11 @@ class Todo extends Model
             $builder->orderBy($filter['order']);
         }
 
+        if (!empty($filter['categoryId'])) {
+            log_message("debug", "Todo::setFilters - categoryId passed through -> " . strval($filter["categoryId"]));
+            $this->filteringCategoryId = true;
+        }
+
         return $builder;
     }
 
@@ -74,8 +81,15 @@ class Todo extends Model
 
         $builder = $this->setFilters($filter);
         
-        // Get data
-        $query = $builder->getWhere(["private_todo" => false]);
+        $query = null;
+
+        if($this->filteringCategoryId) {
+            $query = $builder->getWhere(["private_todo" => false, "categoryId" => $filter["categoryId"]]);
+        }
+        else {
+            // Get data
+            $query = $builder->getWhere(["private_todo" => false]);
+        }
 
         // Get count all
        
