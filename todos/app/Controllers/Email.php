@@ -9,8 +9,8 @@ class Email extends BaseController
 
     $email = \Config\Services::email();
 
-    $email->setFrom('pedrocorreiabatista@gmail.com', 'Pedro');
-    $email->setTo('pedrocorreiabatista@gmail.com');
+    $email->setFrom('pedro.correia@lernende.bfo-vs.ch', 'Pedrocas');
+    $email->setTo('pedro.correia@lernende.bfo-vs.ch');
 
     $email->setSubject('Email Test');
     $email->setMessage('Testing the email class.');
@@ -18,7 +18,7 @@ class Email extends BaseController
     $email->send();
 
     if (! $email->send()) {
-        log_message("debug", "Something went wrong");
+        log_message("debug", "Email::Send - Something went wrong while sending an email");
     }
    }
 }

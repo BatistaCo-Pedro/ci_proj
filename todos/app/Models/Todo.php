@@ -28,6 +28,7 @@ class Todo extends Model
         "todo_description" => "required|alpha_numeric_space|min_length[15]",
         "categoryId" => "required|numeric",
         "todo_priorityNr" => "required|numeric",
+        "private_todo" => 'required'
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
@@ -105,14 +106,19 @@ class Todo extends Model
         return $return;
     }
 
-    public function get_private_Filtered($filter) {
+    public function getPrivateFiltered($filter) {
         // Prepare return
         $return = array();
     
         $builder = $this->setFilters($filter);
     
         // Get data
-        $query = $builder->getWhere(["private_todo" => true]);
+        if($this->filteringCategoryId) {
+            $query = $builder->getWhere(["private_todo" => true, "categoryId" => $filter["categoryId"]]);
+        }
+        else {
+            $query = $builder->getWhere(["private_todo" => true]);
+        }
     
         // Get count all
     

@@ -130,16 +130,13 @@ class Todos extends ResourceController
             $new_id = $this->model->insert($data);
 
             if ($new_id === false) {
-                log_message("debug", "hmm");
                 return $this->failValidationErrors($this->model->errors());
             }
             else {
-                log_message("debug", $new_id);
+                log_message("info", "Todo::Create - Created Todo with: " . json_encode($data));
                 return $this->respondCreated(['id' => $new_id] + $data);
             }
         }
-
-        log_message("debug" , "You're dumb");
 
         // Fail
         return $this->failServerError();
@@ -165,8 +162,6 @@ class Todos extends ResourceController
                 // Get & prepare data
                 $data = $this->request->getJSON(true);
 
-                log_message("debug", "Create Todo JSON data: " . json_encode($data));
-
                 if (!empty($data)) {
 
                     // Add meta data
@@ -177,18 +172,14 @@ class Todos extends ResourceController
                         return $this->failValidationErrors($this->model->errors());
                     }
                     else {
+                        log_message("info", "Todo::Update - Updated Todo with: " . json_encode($data));
                         return $this->respondUpdated(['id' => $id] + $data);
                     }
-                }
-                
+                }   
             }
-
         }
-
         return $this->failNotFound();
-
     }
-
 
 
     /**

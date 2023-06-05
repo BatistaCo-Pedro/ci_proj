@@ -16,6 +16,18 @@ class APIKeys extends Seeder
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
+            [
+                'api_key'       => 'uPklTz93JsfKpiSl09p48shBfiVWDpe01uZ76t1t2mr=',
+                'comments'      => 'Antonio',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'api_key'       => 'lo348sSadpSe02Sa9d+93t2aF788FLLod2ap92nc34y=',
+                'comments'      => 'Test',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
         ];
         
         // Init car model

@@ -95,10 +95,8 @@ class Categories extends ResourceController
         if (!empty($data) && is_array($data)) {
 
             // Remove internal field: deleted_at
-            unset($data['deleted_at']);
-            
+            unset($data['deleted_at']);   
         }
-
         return $data;
     }
 
@@ -126,20 +124,15 @@ class Categories extends ResourceController
             $new_id = $this->model->insert($data);
 
             if ($new_id === false) {
-                log_message("debug", "hmm");
                 return $this->failValidationErrors($this->model->errors());
             }
             else {
-                log_message("debug", $new_id);
+                log_message("info", "Category::Create - Created Category with: " . json_encode($data));
                 return $this->respondCreated(['id' => $new_id] + $data);
             }
         }
-
-        log_message("debug" , "You're dumb");
-
         // Fail
         return $this->failServerError();
-
     }
 
     /**
@@ -172,18 +165,14 @@ class Categories extends ResourceController
                         return $this->failValidationErrors($this->model->errors());
                     }
                     else {
+                        log_message("info", "Category::Update - Updated Category with: " . json_encode($data));
                         return $this->respondUpdated(['id' => $id] + $data);
                     }
-                }
-                
+                }   
             }
-
         }
-
         return $this->failNotFound();
-
     }
-
 
 
     /**
@@ -220,8 +209,6 @@ class Categories extends ResourceController
             }
 
         }
-
         return $this->failNotFound();
-
     }
 }

@@ -47,7 +47,7 @@ class PrivateTodos extends ResourceController
         log_api_request($request, get_api_auth_from_request($request));
 
         // Get filtered data
-        $all_data = $this->model->get_private_Filtered($filter);
+        $all_data = $this->model->getPrivateFiltered($filter);
         
 
         // Check filtered data
