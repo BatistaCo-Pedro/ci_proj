@@ -27,7 +27,7 @@ class Todo extends Model
         "todo_name" => "required|alpha_numeric_space|min_length[3]",
         "todo_description" => "required|alpha_numeric_space|min_length[15]",
         "categoryId" => "required|numeric",
-        "todo_priorityNr" => "required|numeric",
+        "todo_priorityNr" => "required|numeric|inrange",
         "private_todo" => 'required'
     ];
     protected $validationMessages   = [];
