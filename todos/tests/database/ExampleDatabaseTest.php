@@ -22,7 +22,7 @@ final class ExampleDatabaseTest extends CIUnitTestCase
         $objects = $model->findAll();
 
         // Make sure the count is as expected
-        $this->assertCount(3, $objects);
+        $this->assertCount(4, $objects);
     }
 
     public function testSoftDeleteLeavesRow()

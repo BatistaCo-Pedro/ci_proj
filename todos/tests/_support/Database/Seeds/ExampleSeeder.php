@@ -8,34 +8,49 @@ class ExampleSeeder extends Seeder
 {
     public function run()
     {
-        $factories = [
+        $todos = [
             [
-                'name'    => 'Test Factory',
-                'uid'     => 'test001',
-                'class'   => 'Factories\Tests\NewFactory',
-                'icon'    => 'fas fa-puzzle-piece',
-                'summary' => 'Longer sample text for testing',
+                'todo_name'         => 'Do this',
+                'todo_description'  => "lorem ipsum do this and that",
+                'categoryId'        => 2,
+                'todo_priorityNr'   => 4,
+                'private_todo'      => 0,
+                'created_at'        => date('Y-m-d H:i:s'),
+                'updated_at'        => date('Y-m-d H:i:s'),
             ],
             [
-                'name'    => 'Widget Factory',
-                'uid'     => 'widget',
-                'class'   => 'Factories\Tests\WidgetPlant',
-                'icon'    => 'fas fa-puzzle-piece',
-                'summary' => 'Create widgets in your factory',
+                'todo_name'         => 'Play Baseball',
+                'todo_description'  => "baseball is a sport   duh",
+                'categoryId'        => 1,
+                'todo_priorityNr'   => 3,
+                'private_todo'      => 0,
+                'created_at'        => date('Y-m-d H:i:s'),
+                'updated_at'        => date('Y-m-d H:i:s'),
             ],
             [
-                'name'    => 'Evil Factory',
-                'uid'     => 'evil-maker',
-                'class'   => 'Factories\Evil\MyFactory',
-                'icon'    => 'fas fa-book-dead',
-                'summary' => 'Abandon all hope, ye who enter here',
+                'todo_name'         => 'Go catch some hands',
+                'todo_description'  => "beat some guy on the front of some bar",
+                'categoryId'        => 1,
+                'todo_priorityNr'   => 2,
+                'private_todo'      => 0,
+                'created_at'        => date('Y-m-d H:i:s'),
+                'updated_at'        => date('Y-m-d H:i:s'),
+            ],
+            [
+                'todo_name'         => 'Kill someone',
+                'todo_description'  => "this is a secret todo and thus its private",
+                'categoryId'        => 1,
+                'todo_priorityNr'   => 1,
+                'private_todo'      => 1,
+                'created_at'        => date('Y-m-d H:i:s'),
+                'updated_at'        => date('Y-m-d H:i:s'),
             ],
         ];
 
-        $builder = $this->db->table('factories');
+        $builder = $this->db->table('todos');
 
-        foreach ($factories as $factory) {
-            $builder->insert($factory);
+        foreach ($todos as $todo) {
+            $builder->insert($todo);
         }
     }
 }

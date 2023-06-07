@@ -6,19 +6,14 @@ use CodeIgniter\Model;
 
 class ExampleModel extends Model
 {
-    protected $table          = 'factories';
-    protected $primaryKey     = 'id';
-    protected $returnType     = 'object';
-    protected $useSoftDeletes = false;
-    protected $allowedFields  = [
-        'name',
-        'uid',
-        'class',
-        'icon',
-        'summary',
-    ];
-    protected $useTimestamps      = true;
-    protected $validationRules    = [];
-    protected $validationMessages = [];
-    protected $skipValidation     = false;
+    protected $table            = 'todos';
+    protected $primaryKey       = 'id';
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
+    protected $allowedFields    = ["todo_name", "todo_description", "categoryId", "todo_priorityNr", "private_todo"];
+
+    protected $useTimestamps = true;
+    protected $validationRules = [];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
 }

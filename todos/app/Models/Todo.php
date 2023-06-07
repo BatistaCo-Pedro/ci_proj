@@ -16,7 +16,7 @@ class Todo extends Model
     protected $allowedFields    = ["todo_name", "todo_description", "categoryId", "todo_priorityNr", "private_todo"];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

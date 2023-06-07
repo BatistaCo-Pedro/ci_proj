@@ -17,7 +17,7 @@ class Category extends Model
     protected $allowedFields    = ["cat_name"];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
