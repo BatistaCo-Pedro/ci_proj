@@ -8,8 +8,8 @@ class API extends BaseConfig
 {
 
     public $defaults = [
-        'default_limit' => 5,
-        'max_limit' => 10
+        'default_limit' => 20,
+        'max_limit' => 100
     ];
 
     public $check_api_key = true;
